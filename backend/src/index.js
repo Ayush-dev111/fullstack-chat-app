@@ -4,7 +4,7 @@ import messageRoutes from './routes/message.route.js';
 import dotenv from 'dotenv'
 import { connectDb } from "./lib/database.js";
 import cookieParser from "cookie-parser"
-
+import cors from 'cors';
 const PORT = process.env.PORT || 3500;
 const app = express();
 dotenv.config();
@@ -13,9 +13,14 @@ connectDb();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser()); 
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true
+}));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/message', messageRoutes);
+
 
 
 app.listen(PORT, ()=>{

@@ -3,6 +3,7 @@ import Message from "../models/message.model.js"
 
 export const getUsersForSidebar = async (req, res) => {
     try {
+        
         const loggedUserId = req.user._id;
         const filteredUsers = await User.find({ _id: { $ne: loggedUserId } }).select("-password");
     
